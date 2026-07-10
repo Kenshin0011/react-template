@@ -2,6 +2,6 @@ pre-commit:
   commands:
     format:
       # ステージングされた対象ファイルを指定
-      glob: "*.{js,ts,tsx,css,html,json,md,yml}"
+      glob: "*.{ts,tsx,js,jsx}"
       # 変更されたファイル（{staged_files}）だけに pnpm format を実行
       run: pnpm format {staged_files} && git add {staged_files}
