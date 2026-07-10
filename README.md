@@ -1,32 +1,31 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite Modern Template
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+TypeScript 7.0 の高速な型システム、最速の Linter である **oxlint**、環境一元管理ツール **mise**、そして GitHub Actions による **E2E & GitベースVRT（視覚回帰テスト）** を完備した、2026年基準の超高速・堅牢なフロントエンド開発テンプレートです。
 
-Currently, two official plugins are available:
+## 🚀 特徴
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **⚡️ 超高速ツールチェーン**: `Vite` + `oxlint` による瞬時のビルド＆静的解析。
+- **🛑 TS 7.0 思想の厳格な型チェック**: `moduleResolution: "Bundler"`、`noUncheckedIndexedAccess` などを標準有効化。エイリアス不要のクリーンな依存解決。
+- **📌 開発環境の一元管理 (`mise`)**: Node.js や pnpm のバージョンを `mise.toml` でローカル・CI 共に完全固定。
+- **📷 外部サービス不要の Gitベース VRT**: Playwright を使用し、UI の変更（差分）を検知すると CI が最新のスクショを PR に自動コミットバック（`[skip ci]` 制御付き）。
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ 開発の始め方
 
-## Expanding the Oxlint configuration
+### 1. 前提条件
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+ローカル環境に [mise](https://mise.jdx.dev/) がインストールされていることを確認してください。
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+### 2. セットアップ & 起動
+
+```bash
+# 適切なバージョンの自動インストール
+mise install
+
+# 依存関係のインストール
+pnpm install
+
+# 開発サーバーの起動
+pnpm dev
 ```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
