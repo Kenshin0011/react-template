@@ -1,0 +1,90 @@
+name: Playwright Tests & VRT
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test_e2e:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          run_install: true
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
+
+      - name: Type Check
+        run: pnpm type-check
+
+      - name: Start Vite Server
+        run: pnpm dev &
+
+      # 普通のE2Eテストのみを実行（VRT用のスナップショット比較はスキップ）
+      # (tests/e2e/ 配下に置くか、--ignore-snapshots フラグを活用)
+      - name: Run Playwright E2E tests
+        run: pnpm exec playwright test --ignore-snapshots
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-e2e-report
+          path: playwright-report/
+          retention-days: 7
+
+  test_vrt:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    # PRの時だけVRTと自動コミットを走らせる
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # (vrt側の場合は ref: ${{ github.head_ref }} を残す)
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || '' }}
+
+      - uses: jdx/mise-action@v2
+        with:
+          install: true
+          cache: true
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
+
+      - name: Start Vite Server
+        run: pnpm dev &
+
+      # VRTテストを実行。差分があると画像が上書きされてテスト自体は落ちます。
+      # (tests/vrt/ 配下のテスト、または --grep vrt で指定したテストを想定)
+      - name: Run Playwright VRT
+        run: pnpm exec playwright test --grep vrt
+        continue-on-error: true # 落ちても次の自動コミットステップに進める
+
+      # 差分（新しいスクショ）があればGitに自動コミットしてPRへプッシュ
+      - name: Commit and Push if UI changed
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          if [ -n "$(git status --porcelain tests/)" ]; then
+            echo "UIの変更（または新規画像）を検知しました。自動コミットします。"
+            git add tests/
+            # ★メッセージに [skip ci] を追加して、このプッシュによる再実行を防ぐ
+            git commit -m "chore(vrt): UI変更のスクリーンショットを自動更新 [skip ci]"
+            git push
+            
+            echo "::error::UIに差分があったため、最新のスクショをプッシュしました。PRの Files changed で目視確認してください。"
+            exit 1
+          else
+            echo "UIの変更はありません。Pass!"
+          fi
