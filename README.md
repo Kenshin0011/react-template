@@ -1,31 +1,162 @@
 # React + TypeScript + Vite Modern Template
 
-TypeScript 7.0 の高速な型システム、最速の Linter である **oxlint**、環境一元管理ツール **mise**、そして GitHub Actions による **E2E & GitベースVRT（視覚回帰テスト）** を完備した、2026年基準の超高速・堅牢なフロントエンド開発テンプレートです。
+A modern React starter powered by **Vite**, **TypeScript**, **Panda CSS**, **Ark UI**, **Storybook**, **Vitest**, **Playwright**, and **GitHub Actions**.
 
-## 🚀 特徴
+Designed for building fast, type-safe, accessible, and scalable applications with a modern developer experience.
 
-- **⚡️ 超高速ツールチェーン**: `Vite` + `oxlint` による瞬時のビルド＆静的解析。
-- **🛑 TS 7.0 思想の厳格な型チェック**: `moduleResolution: "Bundler"`、`noUncheckedIndexedAccess` などを標準有効化。エイリアス不要のクリーンな依存解決。
-- **📌 開発環境の一元管理 (`mise`)**: Node.js や pnpm のバージョンを `mise.toml` でローカル・CI 共に完全固定。
-- **📷 外部サービス不要の Gitベース VRT**: Playwright を使用し、UI の変更（差分）を検知すると CI が最新のスクショを PR に自動コミットバック（`[skip ci]` 制御付き）。
+## ✨ Features
+
+### ⚡ Modern Stack
+
+- React 19
+- TypeScript
+- Vite
+
+### 🎨 UI
+
+- Panda CSS (Zero-runtime CSS-in-JS)
+- Ark UI (Headless & Accessible Components)
+- Storybook
+
+### ✅ Quality
+
+- Oxlint
+- TypeScript Strict Mode
+- Vitest
+- React Testing Library
+
+### 🧪 Testing
+
+- Unit Tests (Vitest)
+- Storybook Interaction Tests
+- Playwright E2E
+- Playwright Visual Regression Tests (VRT)
+
+### 🚀 Developer Experience
+
+- mise
+- pnpm
+- Lefthook
+- GitHub Actions
 
 ---
 
-## 🛠️ 開発の始め方
+# Getting Started
 
-### 1. 前提条件
+## Requirements
 
-ローカル環境に [mise](https://mise.jdx.dev/) がインストールされていることを確認してください。
+- mise
 
-### 2. セットアップ & 起動
+or
+
+- Node.js
+- pnpm
+
+## Installation
 
 ```bash
-# 適切なバージョンの自動インストール
 mise install
 
-# 依存関係のインストール
 pnpm install
+```
 
-# 開発サーバーの起動
+## Development
+
+```bash
 pnpm dev
 ```
+
+---
+
+# Available Scripts
+
+| Script            | Description              |
+| ----------------- | ------------------------ |
+| `pnpm dev`        | Start development server |
+| `pnpm build`      | Production build         |
+| `pnpm preview`    | Preview production build |
+| `pnpm lint`       | Run Oxlint               |
+| `pnpm format`     | Auto fix using Oxlint    |
+| `pnpm type-check` | TypeScript type checking |
+| `pnpm check-all`  | Lint + Type Check        |
+
+## Testing
+
+| Script                 | Description             |
+| ---------------------- | ----------------------- |
+| `pnpm test`            | Vitest (Watch Mode)     |
+| `pnpm test:run`        | Run Unit Tests          |
+| `pnpm test:ui`         | Vitest UI               |
+| `pnpm test:coverage`   | Coverage Report         |
+| `pnpm test:e2e`        | Playwright E2E          |
+| `pnpm test:vrt`        | Visual Regression Tests |
+| `pnpm test:vrt:update` | Update Snapshots        |
+
+## Storybook
+
+```bash
+pnpm storybook
+```
+
+Build Storybook
+
+```bash
+pnpm build-storybook
+```
+
+---
+
+# Project Structure
+
+```text
+src/
+├── components/
+│   └── ui/
+│       ├── Button/
+│       │   ├── Button.tsx
+│       │   ├── Button.stories.tsx
+│       │   ├── Button.test.tsx
+│       │   └── index.ts
+│       └── Accordion/
+│
+├── tests/
+│   └── setup.ts
+│
+└── App.tsx
+
+tests/
+├── e2e/
+└── vrt/
+
+.storybook/
+```
+
+---
+
+# CI
+
+GitHub Actions includes workflows for:
+
+- ✅ Lint
+- ✅ Type Check
+- ✅ Unit Tests (Vitest)
+- ✅ Playwright E2E
+- ✅ Visual Regression Tests
+- ✅ Storybook Build
+
+---
+
+# Tech Stack
+
+- React
+- TypeScript
+- Vite
+- Panda CSS
+- Ark UI
+- Storybook
+- Vitest
+- Playwright
+- Oxlint
+- mise
+- pnpm
+- GitHub Actions
