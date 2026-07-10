@@ -4,17 +4,19 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "prepare": "panda codegen",
+    "prepare": "lefthook install && panda codegen",
     "dev": "panda codegen && vite",
     "build": "panda codegen && tsc -b && vite build",
     "lint": "oxlint",
-    "lint:fix": "oxlint --fix",
+    "format": "oxlint --fix",
     "type-check": "tsc --noEmit",
     "check-all": "pnpm lint && pnpm type-check",
     "preview": "vite preview",
     "test:e2e": "playwright test",
     "test:vrt": "playwright test --grep vrt",
-    "test:vrt:update": "playwright test --grep vrt --update-snapshots"
+    "test:vrt:update": "playwright test --grep vrt --update-snapshots",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "packageManager": "pnpm@11.11.0",
   "dependencies": {
@@ -34,6 +36,17 @@
     "oxlint": "^1.73.0",
     "typescript": "~7.0.2",
     "vite": "^8.1.4",
-    "vite-plugin-checker": "^0.14.4"
+    "vite-plugin-checker": "^0.14.4",
+    "storybook": "10.4.6",
+    "@storybook/react-vite": "10.4.6",
+    "@chromatic-com/storybook": "^5.2.1",
+    "@storybook/addon-vitest": "10.4.6",
+    "@storybook/addon-a11y": "10.4.6",
+    "@storybook/addon-docs": "10.4.6",
+    "@storybook/addon-mcp": "^0.7.0",
+    "vitest": "^4.1.10",
+    "playwright": "^1.61.1",
+    "@vitest/browser-playwright": "^4.1.10",
+    "@vitest/coverage-v8": "^4.1.10"
   }
 }
