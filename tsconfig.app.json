@@ -7,9 +7,10 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "strict": true,
     "noEmit": true,
+    "allowImportingTsExtensions": true,
     "skipLibCheck": true,
     "noUncheckedIndexedAccess": true,
-    "noUncheckedSideEffectImports": true,
+    "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["src/**/*", "src/vite-env.d.ts", "styled-system"]
 }
