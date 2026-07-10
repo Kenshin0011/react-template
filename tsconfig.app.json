@@ -12,5 +12,5 @@
     "noUncheckedIndexedAccess": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src/**/*", "src/vite-env.d.ts", "styled-system"]
+  "include": ["src/**/*", "src/vite-env.d.ts", "styled-system", "tests"]
 }

@@ -1,0 +1,29 @@
+name: Unit Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  unit:
+    name: Vitest
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        uses: jdx/mise-action@v2
+        with:
+          install: true
+          cache: true
+
+      - name: Generate Panda CSS
+        run: pnpm panda codegen
+
+      - name: Run unit tests
+        run: pnpm test:run
